@@ -1,6 +1,6 @@
 // Spike test: a sudden jump in users, then recovery. Looser thresholds because spikes are expected to hurt.
 import { sleep } from 'k6';
-import { listCrocodiles } from '../lib/api.js';
+import { listQuotes } from '../lib/api.js';
 
 export const options = {
   stages: [
@@ -17,6 +17,6 @@ export const options = {
 };
 
 export default function () {
-  listCrocodiles();
+  listQuotes();
   sleep(1);
 }

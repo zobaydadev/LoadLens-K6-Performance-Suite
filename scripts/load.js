@@ -1,7 +1,7 @@
 // Load test: ramp up to a modest number of virtual users, hold, then ramp down.
 import { sleep } from 'k6';
 import { defaultThresholds } from '../lib/config.js';
-import { listCrocodiles, getCrocodile } from '../lib/api.js';
+import { listQuotes, listNames } from '../lib/api.js';
 
 export const options = {
   stages: [
@@ -11,12 +11,12 @@ export const options = {
   ],
   thresholds: {
     ...defaultThresholds,
-    'http_req_duration{name:get_crocodile}': ['p(95)<800'],
+    'http_req_duration{name:list_names}': ['p(95)<800'],
   },
 };
 
 export default function () {
-  listCrocodiles();
-  getCrocodile(Math.floor(Math.random() * 8) + 1);
+  listQuotes();
+  listNames();
   sleep(1);
 }
