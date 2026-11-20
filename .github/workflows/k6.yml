@@ -22,3 +22,12 @@ jobs:
         with:
           name: k6-load-summary
           path: load-summary.json
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the Docker image
+        run: docker build -t loadlens-k6 .
+      - name: Run the smoke test inside the container
+        run: docker run --rm loadlens-k6
