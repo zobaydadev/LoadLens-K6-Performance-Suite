@@ -1,0 +1,24 @@
+name: K6 performance tests
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  k6:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: grafana/setup-k6-action@v1
+      - name: Smoke test
+        run: k6 run scripts/smoke.js
+      - name: Load test
+        run: k6 run scripts/load.js --summary-export=load-summary.json
+      - name: Spike test
+        run: k6 run scripts/spike.js
+      - name: Upload load summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: k6-load-summary
+          path: load-summary.json
