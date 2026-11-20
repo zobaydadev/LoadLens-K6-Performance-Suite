@@ -35,3 +35,11 @@ k6 run -e BASE_URL=https://your-host scripts/smoke.js
 
 ## CI
 `.github/workflows/k6.yml` runs all three scripts on every push and uploads the load test summary as an artifact.
+
+## Run with Docker
+No local k6 install needed:
+```bash
+docker build -t loadlens-k6 .
+docker run --rm loadlens-k6                       # smoke test
+docker run --rm loadlens-k6 scripts/load.js        # load test
+```
